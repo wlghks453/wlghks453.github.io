@@ -15,7 +15,7 @@ https://user-images.githubusercontent.com/85418632/211225192-7e5d1116-2f4f-4305-
 
 ## Installation
 
-### Use the template
+### Use the templa
 
 The [Just the Docs Template] provides the simplest, quickest, and easiest way to create a new website that uses the Just the Docs theme. To get started with creating a site, just click "[use the template]"!
 
@@ -97,6 +97,8 @@ When this theme is released, only the files in `_layouts`, `_includes`, and `_sa
 ## License
 
 The theme is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+
+실행하기 bundle exec jekyll serve
 
 [^2]: [It can take up to 10 minutes for changes to your site to publish after you push the changes to GitHub](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/creating-a-github-pages-site-with-jekyll#creating-your-site).
 
