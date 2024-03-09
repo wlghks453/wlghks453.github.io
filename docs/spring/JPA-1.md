@@ -59,6 +59,9 @@ em.persist(Object);
 FIND 할 때 1차 캐시에 있나 확인 후 있으면 1차 캐시에서 꺼내서 주고 
 없으면 DB에서 조회 후 1차 캐시에 저장 후 RETURN 해준다.
 
+※기본키 전략에서 identity 일 경우  insert를 해봐야 pk가 정해지므로 
+em.persist(Object); 시 바로 insert 쿼리가 나가고 그 이후에 영속성 컨텍스트 1차 캐시에 저장한다.
+
 • 동일성(identity) 보장
 
 FIND 한 두 객체는 == 비교 시 TRUE가 된다는 말이다!!
