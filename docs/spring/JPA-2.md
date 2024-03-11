@@ -48,3 +48,9 @@ nav_order: 1
 난 1 관계인 놈만 건드렸는데 N관계의 테이블에 SQL이 날라가는 현상 때문에 헷갈릴 수 있다. 
 
 다대일 관계를 지향하자.
+
+## 일대다에서 양방향을 쓰고 싶을 땐?
+
+N 객체에 @JoinColumn(insertable=false, updateable=false) 를 넣어준다. 
+
+읽기전용으로 만들어버린다.
