@@ -51,3 +51,4 @@ hibernate.default_batch_fetch_size: 글로벌 설정
 컬렉션 페치 조인은 페이징이 불가능 하지만 이 방법은 페이징이 가능하다.
 결론
 ToOne 관계는 페치 조인해도 페이징에 영향을 주지 않는다. 따라서 ToOne 관계는 페치조인으로 쿼리 수를 줄이고 해결하고, 나머지는 hibernate.default_batch_fetch_size 로 최적화 하자.
+페이징으로 조금 가져오고 나머지는 IN 방식으로 LAZY 로딩한다는 것!!!
