@@ -3,7 +3,6 @@ layout: default
 title: JPA 조회
 parent: JPA
 grand_parent: 스프링
-
 nav_order: 4
 ---
 
