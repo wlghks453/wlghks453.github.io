@@ -165,4 +165,89 @@ SELECT e FROM Employee e LEFT JOIN e.department d
 SELECT e, d FROM Employee e CROSS JOIN Department d
 ```
 
-### 연관관계 없는 조인 작성하기
+---
+
+## 🐱‍ JPQL에서의 서브쿼리
+
+서브쿼리는 SQL에서와 마찬가지로 JPQL에서도 사용됩니다.
+
+### 서브쿼리 지원 함수
+
+JPQL에서 서브쿼리를 사용할 때는 여러 가지 함수를 활용할 수 있습니다. 대표적인 서브쿼리 지원 함수는 다음과 같습니다:
+
+- **EXISTS**: 서브쿼리의 결과가 존재하는지 확인할 때 사용합니다.
+- **ALL**: 서브쿼리의 모든 결과와 비교할 때 사용합니다.
+- **ANY, SOME**: 서브쿼리의 일부 결과와 비교할 때 사용합니다.
+- **IN**: 서브쿼리의 결과가 특정 값 집합에 포함되는지 확인할 때 사용합니다.
+
+이들 함수는 서브쿼리를 통해 복잡한 조건을 처리할 때 매우 유용하게 사용됩니다.
+
+### 서브쿼리 한계
+
+JPQL에서 서브쿼리를 사용할 때는 몇 가지 제한사항이 있습니다:
+
+- **WHERE, HAVING 절에서만 서브쿼리 사용 가능**: JPQL에서는 서브쿼리를 주로 `WHERE` 절과 `HAVING` 절에서 사용할 수 있습니다.
+- **SELECT 절에서 서브쿼리 사용 (하이버네이트에서만 가능)**: 표준 JPA에서는 `SELECT` 절에서 서브쿼리를 사용할 수 없지만, 하이버네이트와 같은 특정 JPA 구현체에서는 `SELECT` 절에서 서브쿼리를 사용할 수 있습니다.
+- **FROM 절의 서브쿼리는 불가능**: JPQL에서는 `FROM` 절에 서브쿼리를 사용할 수 없습니다. 이 점은 SQL과의 큰 차이점 중 하나입니다.
+
+### 서브쿼리 예시
+
+아래는 `EXISTS` 함수를 사용한 서브쿼리 예시입니다. 이 예시는 특정 부서에 소속된 직원들이 존재하는지 확인하는 쿼리입니다.
+
+**예시:**
+
+```java
+SELECT d FROM Department d WHERE EXISTS (SELECT e FROM Employee e WHERE e.department = d)
+```
+
+---
+
+## 🐱‍ JPQL에서의 조건식
+
+SQL처럼 다양한 조건식을 제공합니다. 표준 함수라서 어떤 DB에서 사용가능합니다.
+
+JPQL에서 자주 사용되는 조건식인 **CASE WHEN**, **COALESCE**, **NULLIF**가 있습니다.
+
+### 🔹 CASE WHEN
+
+SQL의 `CASE WHEN`과 유사하게 동작한다.
+
+**예시:**
+
+```java
+SELECT e.name,
+CASE
+WHEN e.salary >= 100000 THEN 'High'
+WHEN e.salary >= 50000 THEN 'Medium'
+ELSE 'Low'
+END
+FROM Employee e
+```
+
+### 🔹 COALESCE
+
+`COALESCE`는 인수 중 첫 번째로 NULL이 아닌 값을 반환하는 함수입니다. 여러 개의 값을 받아서 그 중에서 NULL이 아닌 첫 번째 값을 반환하므로, NULL 값을 대체하는 데 유용합니다.
+
+**예시:**
+
+```java
+SELECT e.name, COALESCE(e.nickname, e.name)
+FROM Employee e
+```
+
+이 쿼리는 직원의 닉네임이 존재하면 닉네임을 반환하고, 그렇지 않으면 본래 이름을 반환합니다.
+
+### 🔹 NULLIF
+
+`NULLIF`는 두 인수가 동일하면 NULL을 반환하고, 그렇지 않으면 첫 번째 인수를 반환하는 함수입니다. 이 함수는 특정 값이 특정 조건과 동일할 때 그 값을 NULL로 처리하고 싶을 때 사용됩니다.
+
+**예시:**
+
+```java
+SELECT e.name, NULLIF(e.department.name, 'Unassigned')
+FROM Employee e
+```
+
+이 쿼리는 부서 이름이 'Unassigned'인 경우에 NULL을 반환하고, 그렇지 않은 경우에는 실제 부서 이름을 반환합니다.
+
+---
