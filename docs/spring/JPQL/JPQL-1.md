@@ -1,7 +1,7 @@
 ---
 layout: default
-title: JPA JQPL
-parent: JPA
+title: JPA 반환타입
+parent: JPQL
 grand_parent: 스프링
 nav_order: 5
 ---
@@ -249,5 +249,58 @@ FROM Employee e
 ```
 
 이 쿼리는 부서 이름이 'Unassigned'인 경우에 NULL을 반환하고, 그렇지 않은 경우에는 실제 부서 이름을 반환합니다.
+
+---
+
+# 🐱‍💻 JPA 경로 표현식(Path Expression)
+
+JPA에서 경로 표현식(Path Expression)은 엔티티와 그 엔티티에 속한 필드 또는 연관된 엔티티를 탐색하는 데 사용됩니다.
+
+## 📚 경로 표현식의 개념
+
+경로 표현식은 주로 다음과 같은 필드와 관계를 탐색할 때 사용됩니다.
+
+- **단일 값 연관 필드**
+- **컬렉션 값 연관 필드**
+- **임베디드 타입**
+
+### 1. 단일 값 연관 필드
+
+단일 값 연관 필드는 다른 엔티티와의 `@ManyToOne` 또는 `@OneToOne` 관계를 의미합니다.
+
+```java
+SELECT e.department.name FROM Employee e
+```
+
+이 경로 표현식을 통해 `Department` 엔티티의 `name` 필드에 접근할 수 있습니다.
+
+- **실제 SQL은 INNER JOIN 이 발생합니다.**
+
+
+### 2. 컬렉션 값 연관 필드
+
+컬렉션 값 연관 필드는 다른 엔티티와의 `@OneToMany` 또는 `@ManyToMany` 관계를 나타냅니다.
+
+team 앤티티는 멤버 엔티티의 컬렉션을 가지고 있습니다.
+
+```java
+SELECT t.members FROM Team t
+```
+
+컬렉션 값 연관 필드입니다.
+
+- **컬렉션 값 경로는 단일 값으로 확장될 수 없습니다.** 컬렉션 경로는 그 자체로 컬렉션을 나타내며, 추가적으로 경로를 따라갈 수 없습니다. 이를 해결하려면 명시적으로 조인을 사용해야 합니다.
+
+### 3. 임베디드 타입
+
+임베디드 타입은 엔티티 내부에 포함된 다른 객체입니다. 보통 `@Embedded` 애노테이션을 사용하여 엔티티 내부에 객체를 포함시키고, 경로 표현식을 통해 임베디드 객체의 필드에 접근할 수 있습니다.
+
+```java
+SELECT o.customer.address.city FROM Order o
+```
+
+## 🛠️ 경로 표현식 사용할 때 주의사항
+
+ - **묵시적 조인(안보이는 SQL) 보단 명시적 조인(직접 JOIN을 명시하여 한눈에 보이게)** 을 사용합시다.
 
 ---
