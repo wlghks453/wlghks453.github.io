@@ -1,6 +1,6 @@
 ---
 layout: default
-title: JPQL FETCH JOIN
+title: JPQL BULK 연산
 parent: JPQL
 grand_parent: 스프링
 nav_order: 6
