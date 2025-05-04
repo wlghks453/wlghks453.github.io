@@ -6,11 +6,10 @@ grand_parent: 스프링
 nav_order: 7
 ---
 
-{: .no_toc }
-
+## 목차
 {: .no_toc .text-delta }
 
-1. TOC
+1. TOC 
 {:toc}
 
 ---
